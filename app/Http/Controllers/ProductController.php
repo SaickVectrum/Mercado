@@ -27,13 +27,21 @@ class ProductController extends Controller
 		return view('products.index', compact('products'));
 	}
 
-	public function productosPorCategoria($nameCategory)
+
+
+	public function productoSeleccionado($idproduct)
 	{
-		$category = Category::where('name',$nameCategory)->firstOrFail();
-		$products = Product::where('category_id',$category->id)->get();
-		return view('products.nuevaVista', compact('category','products'));
+		$product =  Product::findOrFail($idproduct);
+		return view('products.only', compact('product'));
 	}
 
+	public function productosPorCategoria($nameCategory)
+	{
+		$category = Category::where('name', $nameCategory)->firstOrFail();
+		$products = Product::where('category_id', $category->id)->get();
+		return view('products.nuevaVista', compact('category', 'products'));
+	}
+	
 	public function store(ProductRequest $request)
 	{
 		try {

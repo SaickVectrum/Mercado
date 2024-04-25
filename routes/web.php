@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::group(['prefix' => 'products', 'controller' => ProductController::class], function () {
 		Route::get('/', 'index')->name('products.index')->middleware('can:products.index');
 		Route::get('/show/{product}', 'show')->name('products.show')->middleware('can:products.show');
+		Route::get('/product/{idproduct}', 'productoSeleccionado')->name('products.productoSeleccionado');
 		Route::get('/{nameCategory}', 'productosPorCategoria')->name('products.productosPorCategoria');
 		Route::post('/store', 'store')->name('products.store')->middleware('can:products.store');
 		Route::post('/update/{product}', 'update')->name('products.update')->middleware('can:products.update');
@@ -36,10 +37,10 @@ Route::group(['middleware' => ['auth']], function () {
 	// Category
 	Route::group(['prefix' => 'categories', 'controller' => CategoryController::class], function () {
 		Route::get('/', 'index')->name('categories.index')->middleware('can:categories.index');
-		Route::get('/get-all', 'index')->name('categories.get-all')->middleware('can:categories.get-all');
+		Route::get('/get-all', 'getCategory')->name('categories.get-all')->middleware('can:categories.get-all');
 		Route::get('/get-all-dt', 'getAll')->name('categories.get-all-dt');
 
-		Route::get('/show/{category}', 'show')->name('categories.show')->middleware('can:categories.show');
+		Route::get('/show/{category}', 'show')->name('categories.show');
 
 		Route::post('/store', 'store')->name('categories.store')->middleware('can:categories.store');
 
