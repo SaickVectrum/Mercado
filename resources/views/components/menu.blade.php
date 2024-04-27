@@ -74,6 +74,9 @@
                         </div>
 
                     </li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{route('checkout')}}"><i class="fa-solid fa-cart-shopping"></i><span class="badge bg-primary mx-1">{{\Cart::count()}}</span></a>
+					</li>
                 @endguest
             </ul>
         </div>

@@ -11,9 +11,13 @@
                 <div class="card-body">
                     <h3 class="card-title">{{ $product->title }}</h3>
 					<p>{{$product->description}}</p>
-                    <p class="card-text">${{ $product->price }}</p>
+                    <p class="card-text">${{ number_format($product->price) }}</p>
 					<p>{{$product->stock}} Unidad(es)</p>
-					<button class="btn btn-primary">Agregar al carrito</button>
+					<form action="{{route('add')}}" method="post">
+						@csrf
+					<input type="hidden" name="id" value="{{$product->id}}">
+					<input type="submit" name="btn" class="btn btn-primary w-100" value="Añadir al carrito">
+					</form>
                 </div>
             </div>
         </div>

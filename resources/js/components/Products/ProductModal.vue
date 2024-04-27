@@ -111,6 +111,7 @@
 			}
 		},
 		computed: {
+			
 			schema() {
 				return yup.object({
 					title: yup.string().required(),
@@ -120,6 +121,7 @@
 					category: yup.string().required()
 				})
 			}
+
 		},
 		data() {
 			return {

@@ -20,7 +20,7 @@
                                     src="{{ $product->file->route }}" class="card-img-top" alt="Portada producto"></a>
                             <div class="card-body ">
                                 <h5 class="card-title">{{ $product->title }}</h5>
-                                <p class="card-text">${{ $product->price }}</p>
+                                <p class="card-text">${{ number_format($product->price, 2) }}</p>
                             </div>
                         </div>
                     </div>

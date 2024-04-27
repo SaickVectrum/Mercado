@@ -20,7 +20,7 @@
 							<tr v-for="(product, index) in products" :key="index">
 								<td>{{ product.title }}</td>
 								<td>{{ product.category.name }}</td>
-								<td>${{product.price}}</td>
+								<td>{{formatCurrency(product.price)}}</td>
 								<td>{{ product.stock }}</td>
 								<td>
 									<div class="d-flex justify-content-center" title="Editar">
@@ -54,6 +54,17 @@
 			ProductModal
 		},
 		props: ['products'],
+		computed: {
+        // Método computado para formatear el precio del producto como moneda
+        formatCurrency() {
+            return (value) => {
+                if (typeof value !== "number") {
+                    return value;
+                }
+                return '$' + value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            };
+        }
+    },
 		data() {
 			return {
 				modal: null,

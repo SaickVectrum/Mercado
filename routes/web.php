@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -48,4 +49,14 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::delete('/{category}', 'destroy')->name('categories.destroy')->middleware('can:categories.destroy');
 	});
+
+	//Cart shop
+	Route::group(['prefix' => 'cart','controller' => CartController::class],function(){
+		Route::post('cart/add', 'add')->name('add');
+		Route::get('cart/checkout', 'checkout')->name('checkout');
+		Route::get('cart/clear', 'clear')->name('clear');
+		Route::post('cart/removeitem', 'removeItem')->name('removeitem');
+
+	});
+
 });
