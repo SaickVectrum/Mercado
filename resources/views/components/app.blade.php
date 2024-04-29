@@ -34,7 +34,7 @@
     </main>
 
     {{ $scripts ?? '' }}
-    
+
 </body>
 
 </html>

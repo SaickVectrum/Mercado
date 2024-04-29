@@ -1,15 +1,18 @@
 <?php
 
-use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Auth\RegisterController;
 
 Auth::routes();
 Route::get('/', [ProductController::class, 'home'])->name('products.home');
+Route::get('/search', [ProductController::class, 'search'])->name('products.search');
+
 
 Route::group(['middleware' => ['auth']], function () {
 	Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -51,12 +54,10 @@ Route::group(['middleware' => ['auth']], function () {
 	});
 
 	//Cart shop
-	Route::group(['prefix' => 'cart','controller' => CartController::class],function(){
+	Route::group(['prefix' => 'cart', 'controller' => CartController::class], function () {
 		Route::post('cart/add', 'add')->name('add');
 		Route::get('cart/checkout', 'checkout')->name('checkout');
 		Route::get('cart/clear', 'clear')->name('clear');
 		Route::post('cart/removeitem', 'removeItem')->name('removeitem');
-
 	});
-
 });

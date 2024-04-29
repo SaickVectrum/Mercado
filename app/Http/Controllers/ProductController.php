@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use Illuminate\Http\Request;
 use App\Http\Traits\UploadFile;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Product\ProductRequest;
@@ -14,10 +15,18 @@ class ProductController extends Controller
 {
 	use UploadFile;
 
-	public function home()
+	public function home(Request $request)
 	{
-		$products = Product::with('category', 'file')->whereHas('category')->where('stock', '>', 0)->get();
+		$buscarpor = $request->get('buscarpor');
+		$products = Product::with('category', 'file')->whereHas('category')->where('title', 'like', '%' . $buscarpor . '%')->where('stock', '>', 0)->get();
 		return view('index', compact('products'));
+	}
+
+	public function search(Request $request)
+	{
+		$buscarpor = $request->get('buscarpor');
+		$products = Product::with('category', 'file')->whereHas('category')->where('title', 'like', '%' . $buscarpor . '%')->where('stock', '>', 0)->get();
+		return redirect('/')->with('buscarpor', $buscarpor, 'products', $products);
 	}
 
 	public function index()
@@ -41,7 +50,7 @@ class ProductController extends Controller
 		$products = Product::where('category_id', $category->id)->get();
 		return view('products.nuevaVista', compact('category', 'products'));
 	}
-	
+
 	public function store(ProductRequest $request)
 	{
 		try {
